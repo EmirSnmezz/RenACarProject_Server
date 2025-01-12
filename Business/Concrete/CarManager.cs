@@ -1,12 +1,9 @@
 ﻿using Business.Abstract;
+using Business.ValidatonRules.FluentValidation;
+using Core.Aspects.ValidationAspect;
 using DataAccess.Abstract;
 using Entity.Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
@@ -18,6 +15,8 @@ namespace Business.Concrete
         {
             _CarDal = CarDal;
         }
+
+        [ValidationAspect(typeof(CarValidations))]
         public bool Add(Car Car)
         {
             _CarDal.Add(Car);
@@ -35,9 +34,9 @@ namespace Business.Concrete
             return _CarDal.Get(x => x.IsDeleted == false && x.DailyPrice > 0 && x.Description.Length >= 2);
         }
 
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        public List<Car> GetAll(Expression<Func<Car, bool>>? filter = null)
         {
-            return _CarDal.GetAll(x => x.IsDeleted == false && x.DailyPrice > 0 && x.Description.Length >= 2);
+            return _CarDal.GetAll(x => x.IsDeleted == false);
         }
 
         public bool Update(Car Car)

@@ -8,7 +8,7 @@ namespace DataAccess
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=EMIRSNMEZ;database=RentACarDb;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;database=RentACarDb;Trusted_Connection=true");
         }
 
         public DbSet<Car> Cars { get; set; }
